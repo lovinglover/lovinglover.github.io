@@ -228,6 +228,206 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/01/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%BC%95%E7%94%A8%E3%80%81new%E3%80%81delete/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lovinglover">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lovinglover's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/01/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%BC%95%E7%94%A8%E3%80%81new%E3%80%81delete/" itemprop="url">我的c++学习笔记之引用、new、delete</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-01T14:12:49+08:00">
+                2020-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">c++学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><h2 id="引用与指针的区别"><a href="#引用与指针的区别" class="headerlink" title="引用与指针的区别"></a>引用与指针的区别</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> &amp;b = a;</span><br><span class="line"><span class="keyword">int</span> *c = &amp;a;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"a的地址："</span> &lt;&lt; &amp;a &lt;&lt; <span class="string">"，"</span> &lt;&lt; <span class="string">"a的值："</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"b的地址："</span> &lt;&lt; &amp;b &lt;&lt; <span class="string">"，"</span> &lt;&lt; <span class="string">"b的值："</span> &lt;&lt; b &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"c的地址："</span> &lt;&lt; &amp;c &lt;&lt; <span class="string">"，"</span> &lt;&lt; <span class="string">"c的值："</span> &lt;&lt; c &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">output&gt;&gt;a的地址：<span class="number">005</span>DF98C，a的值：<span class="number">5</span></span><br><span class="line">		b的地址：<span class="number">005</span>DF98C，b的值：<span class="number">5</span></span><br><span class="line">		c的地址：<span class="number">005</span>DF974，c的值：<span class="number">005</span>DF98C</span><br></pre></td></tr></table></figure>
+
+<p>代码中<code>int &amp;b = a</code>语句就是声明并初始化一个引用，从打印结果中可以看到：</p>
+<ol>
+<li><p>引用复制了变量<strong>a</strong>的地址，它没有自己的地址，a和b共用一块内存，引用只是变量的一个别名，此时对b做修改，a也会跟着一起改变</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> &amp;b = a;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"a的地址："</span> &lt;&lt; &amp;a &lt;&lt; <span class="string">"，"</span> &lt;&lt; <span class="string">"a的值："</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"b的地址："</span> &lt;&lt; &amp;b &lt;&lt; <span class="string">"，"</span> &lt;&lt; <span class="string">"b的值："</span> &lt;&lt; b &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">b = <span class="number">8</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"a的地址："</span> &lt;&lt; &amp;a &lt;&lt; <span class="string">"，"</span> &lt;&lt; <span class="string">"a的值："</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"b的地址："</span> &lt;&lt; &amp;b &lt;&lt; <span class="string">"，"</span> &lt;&lt; <span class="string">"b的值："</span> &lt;&lt; b &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">output&gt;&gt;a的地址：<span class="number">004F</span>FD64，a的值：<span class="number">5</span></span><br><span class="line">		b的地址：<span class="number">004F</span>FD64，b的值：<span class="number">5</span></span><br><span class="line">		a的地址：<span class="number">004F</span>FD64，a的值：<span class="number">8</span></span><br><span class="line">		b的地址：<span class="number">004F</span>FD64，b的值：<span class="number">8</span></span><br></pre></td></tr></table></figure>
+
+<p>类似于一个房间有两个门，你对房间内部做了重新装修，但房间还是那个房间，你从哪个门进去看到的都是一样的</p>
+</li>
+</ol>
+<h2 id="关于引用需要注意的"><a href="#关于引用需要注意的" class="headerlink" title="关于引用需要注意的"></a>关于引用需要注意的</h2><ol>
+<li><p>必须先有一个变量，然后针对这个变量建立引用，在声明引用的同使必须进行初始化，表明是对哪个变量额引用，除了在函数中作为形参出现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>&amp; a, <span class="keyword">int</span>&amp; b)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引用一旦声明并初始化，便不可更改，即引用相当于一个常量</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> &amp;b = a;</span><br><span class="line"><span class="keyword">int</span> c = <span class="number">8</span>;</span><br><span class="line">b = c;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>这不是将b作为c的引用的意思</p>
+</li>
+<li><p>不能建立引用数组</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">5</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">int</span>&amp; b[<span class="number">5</span>] = a; <span class="comment">//错误</span></span><br><span class="line"><span class="keyword">int</span>&amp; c = a[<span class="number">0</span>]; <span class="comment">//正确（C++新标准支持）</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h2 id="关于引用的具体使用"><a href="#关于引用的具体使用" class="headerlink" title="关于引用的具体使用"></a>关于引用的具体使用</h2><h3 id="函数参数的引用"><a href="#函数参数的引用" class="headerlink" title="函数参数的引用"></a>函数参数的引用</h3><p>使用<strong>swap</strong>函数交换两个参数，之前都是使用指针</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> *b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> tem = *a;</span><br><span class="line">	*a = *b;</span><br><span class="line">	*b = tem;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用引用，书写更简单些</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> &amp;a, <span class="keyword">int</span> &amp;b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> tem = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = tem;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x = <span class="number">5</span>, y = <span class="number">9</span>;</span><br><span class="line">	swap(x, y);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"x = "</span> &lt;&lt; x &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"y = "</span> &lt;&lt; y &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output&gt;&gt;x = <span class="number">9</span></span><br><span class="line">		y = <span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="函数返回的引用"><a href="#函数返回的引用" class="headerlink" title="函数返回的引用"></a>函数返回的引用</h3><h4 id="可以避免返回变量的拷贝"><a href="#可以避免返回变量的拷贝" class="headerlink" title="可以避免返回变量的拷贝"></a>可以避免返回变量的拷贝</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> &amp;<span class="title">get_area</span><span class="params">(<span class="keyword">int</span> length, <span class="keyword">int</span> weigth)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> area = weigth * length;</span><br><span class="line">	<span class="keyword">return</span> area;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> h = <span class="number">100</span>, w = <span class="number">100</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"面积是："</span> &lt;&lt; get_area(h, w) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="返回值本身可以作为左值"><a href="#返回值本身可以作为左值" class="headerlink" title="返回值本身可以作为左值"></a>返回值本身可以作为左值</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> &amp;<span class="title">add</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> sum = x + y;</span><br><span class="line">	<span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; ++add(<span class="number">1</span>, <span class="number">2</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output&gt;&gt;<span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="new和delete"><a href="#new和delete" class="headerlink" title="new和delete"></a>new和delete</h1><h2 id="为什么使用new"><a href="#为什么使用new" class="headerlink" title="为什么使用new"></a>为什么使用new</h2><p>我现在有个函数求两个字符串的相同字串，并返回</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">get_same_str</span><span class="params">(<span class="keyword">char</span> *arr1, <span class="keyword">char</span> *arr2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> same_str[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">char</span> *p_same_str = same_str;</span><br><span class="line">	<span class="keyword">while</span> (*arr1 &amp;&amp; *arr2)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (*arr1 == *arr2)</span><br><span class="line">		&#123;</span><br><span class="line">			*p_same_str = *arr1;</span><br><span class="line">			arr1++;</span><br><span class="line">			arr2++;</span><br><span class="line">			p_same_str++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			arr1++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	*p_same_str = <span class="string">'\0'</span>;   <span class="comment">//这里一定要有，不然会打印整个长度为10的数组</span></span><br><span class="line">	<span class="keyword">return</span> same_str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看着没有问题，但是我在主函数中调用它得到的额返回值却并不是我想要的</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> str1[] = <span class="string">"abc"</span>, str2[] = <span class="string">"bc"</span>;</span><br><span class="line">	<span class="keyword">char</span> *res = get_same_str(str1, str2);</span><br><span class="line">	<span class="keyword">while</span> (*res)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; *res &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		res++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output&gt;&gt;</span><br><span class="line">    b</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
+
+<p>第一个b确实是我要的，但是后面打印的这是什么？看debug的过程，在<strong>get_same_str</strong>函数内部一切都很正常</p>
+<p><img src="/2020/03/01/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%BC%95%E7%94%A8%E3%80%81new%E3%80%81delete/1.png" alt="截图"></p>
+<p>可以看到，直到执行到<strong>return</strong>时，一切都是按照我预想的来，当回到主函数，看着也很正常,接下来开始执行我的<strong>while</strong>循环以打印，第一步也很正常</p>
+<p><img src="/2020/03/01/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%BC%95%E7%94%A8%E3%80%81new%E3%80%81delete/2.png" alt="截图"></p>
+<p>但当到第二个循环开始，就不正常了</p>
+<p><img src="/2020/03/01/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%BC%95%E7%94%A8%E3%80%81new%E3%80%81delete/3.png" alt="截图"></p>
+<p><img src="/2020/03/01/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%BC%95%E7%94%A8%E3%80%81new%E3%80%81delete/4.png" alt="截图"></p>
+<p>这些字符根本不是我从<strong>get_same_str</strong>子函数中返回的。</p>
+<p>找了一些其他人的博客，意思是在<strong>get_same_str</strong>函数中定义的变量是<em>局部变量</em>，当回到主函数后，超出了它的作用域范围，内存可能会被释放，这时我无法在外部使用，但是可以使用<strong>new</strong>动态分配内存</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">get_same_str</span><span class="params">(<span class="keyword">char</span> *arr1, <span class="keyword">char</span> *arr2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> *same_str = <span class="keyword">new</span> <span class="keyword">char</span>(<span class="number">10</span>);</span><br><span class="line"><span class="comment">//	char same_str[10];</span></span><br><span class="line">	<span class="keyword">char</span> *p_same_str = same_str;</span><br><span class="line">	<span class="keyword">while</span> (*arr1 &amp;&amp; *arr2)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (*arr1 == *arr2)</span><br><span class="line">		&#123;</span><br><span class="line">			*p_same_str = *arr1;</span><br><span class="line">			arr1++;</span><br><span class="line">			arr2++;</span><br><span class="line">			p_same_str++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			arr1++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	*p_same_str = <span class="string">'\0'</span>;</span><br><span class="line">	<span class="keyword">return</span> same_str;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> str1[] = <span class="string">"abc"</span>, str2[] = <span class="string">"bc"</span>;</span><br><span class="line">	<span class="keyword">char</span> *res = get_same_str(str1, str2);</span><br><span class="line">	<span class="keyword">while</span> (*res)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; *res &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		res++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是我的输出就是正常的</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">b</span><br><span class="line">c</span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
+
+<h2 id="new的生命周期"><a href="#new的生命周期" class="headerlink" title="new的生命周期"></a>new的生命周期</h2><p><strong>new</strong>出来的变量，如果你不主动 <strong>delete</strong> 掉这段申请的内存的话，它会一直存在，直到进程结束后系统会回收掉这段资源；而如果你<strong>delete</strong>掉这段申请的内存，则这段申请到的内存的生命周期为从你<strong>new</strong>（申请一段内存）到你<strong>delete</strong>（释放掉这段内存）这段时间。</p>
+<h2 id="delete的使用"><a href="#delete的使用" class="headerlink" title="delete的使用"></a>delete的使用</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>* p = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">5</span>);  <span class="comment">//使用 new 来申请一个int类型变量的内存</span></span><br><span class="line"><span class="keyword">delete</span> p; 			  <span class="comment">//删除变量</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>* p = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];  <span class="comment">//使用new申请一个包含5个int元素的数组</span></span><br><span class="line"><span class="keyword">delete</span>[] p; 		  <span class="comment">//删除数组</span></span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -630,7 +830,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
