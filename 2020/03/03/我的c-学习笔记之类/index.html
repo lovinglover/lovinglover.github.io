@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="类基础面向过程与面向对象面向过程的程序中函数是构成程序的基本单位，每实现一个新功能就新写一个函数，之后调用就可以。 面向对象编程就不是为了实现功能而写个函数。以狗为例，狗有很多属性，如品种、体型大小、毛发、颜色，也会有很多动作，跳、吠，描述一个对象时应该包括这些要素。 任何一个对象都应该有属性和行为这两个要素，一个对象也是由多个属性和多个行为构成的。 在面向对象的编程中，对象由数据和函数两个部分构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的c++学习笔记之类">
+<meta property="og:url" content="http://yoursite.com/2020/03/03/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%B1%BB/index.html">
+<meta property="og:site_name" content="lovinglover&#39;s Blog">
+<meta property="og:description" content="类基础面向过程与面向对象面向过程的程序中函数是构成程序的基本单位，每实现一个新功能就新写一个函数，之后调用就可以。 面向对象编程就不是为了实现功能而写个函数。以狗为例，狗有很多属性，如品种、体型大小、毛发、颜色，也会有很多动作，跳、吠，描述一个对象时应该包括这些要素。 任何一个对象都应该有属性和行为这两个要素，一个对象也是由多个属性和多个行为构成的。 在面向对象的编程中，对象由数据和函数两个部分构">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-03T06:09:13.000Z">
+<meta property="article:modified_time" content="2020-03-03T10:04:57.746Z">
+<meta property="article:author" content="lovinglover">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/03/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%B1%BB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>我的c++学习笔记之类 | lovinglover's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">lovinglover's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">4</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/03/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lovinglover">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lovinglover's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我的c++学习笔记之类
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-03 14:09:13 / 修改时间：18:04:57" itemprop="dateCreated datePublished" datetime="2020-03-03T14:09:13+08:00">2020-03-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">c++学习笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="类基础"><a href="#类基础" class="headerlink" title="类基础"></a>类基础</h1><h2 id="面向过程与面向对象"><a href="#面向过程与面向对象" class="headerlink" title="面向过程与面向对象"></a>面向过程与面向对象</h2><p>面向过程的程序中函数是构成程序的基本单位，每实现一个新功能就新写一个函数，之后调用就可以。</p>
+<p>面向对象编程就不是为了实现功能而写个函数。以狗为例，狗有很多属性，如品种、体型大小、毛发、颜色，也会有很多动作，跳、吠，描述一个对象时应该包括这些要素。</p>
+<p><strong>任何一个对象都应该有属性和行为这两个要素，一个对象也是由多个属性和多个行为构成的。</strong></p>
+<p>在面向对象的编程中，对象由数据和函数两个部分构成，数据就是属性，函数就是行为。</p>
+<h2 id="类的声明"><a href="#类的声明" class="headerlink" title="类的声明"></a>类的声明</h2><p>类是对象的类型，用来表示一类具有共同属性和行为的类型，对象是类的实例，真真实实的变量，占用存储空间，而<strong>类不占空间</strong>。</p>
+<p>定义一个基本的学生类，包含姓名、学号、性别、年龄基本属性</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    <span class="keyword">char</span> sex;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="成员访问限定符"><a href="#成员访问限定符" class="headerlink" title="成员访问限定符"></a>成员访问限定符</h3><table>
+<thead>
+<tr>
+<th>public</th>
+<th><strong>公有的，公开的，既可以被本类中的成员函数引用，也可以被类的作用域的其他函数所引用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>private</strong></td>
+<td><strong>私有的，只能被本类的成员函数调用，类外部无法调用(友元类除外)</strong></td>
+</tr>
+<tr>
+<td><strong>protected</strong></td>
+<td><strong>受保护的，可以被派生类的成员函数访问</strong></td>
+</tr>
+</tbody></table>
+<p>上面的学生类，可以定义为只有姓名可以公开访问</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    <span class="keyword">char</span> sex;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    <span class="keyword">char</span> sex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>默认的就是<strong>private</strong>，成员访问限定符的作用范围是从它的下一行开始到结束或者出现另外一个成员访问限定符。</p>
+<p><strong>需要注意的是</strong>，用类定义的多个对象之间彼此独立，每个对象都拥有自己的一套成员变量。</p>
+<a id="more"></a>
+
+<h2 id="成员函数"><a href="#成员函数" class="headerlink" title="成员函数"></a>成员函数</h2><h3 id="普通成员函数"><a href="#普通成员函数" class="headerlink" title="普通成员函数"></a>普通成员函数</h3><p>类的普通成员函数跟普通的函数没什么区别，都有参数、返回值，区别在于必须通过类的实例化对象去调用。但是普通成员函数不属于对象，不同于成员变量，成员函数在类中只有一个备份。</p>
+<h4 id="存取器函数"><a href="#存取器函数" class="headerlink" title="存取器函数"></a>存取器函数</h4><p>针对私有成员变量，无法在类外被调用访问，必须提供一个<strong>public</strong>的函数来访问、设置，不然这个私有变量就没有意义了，</p>
+<p>这些用来设置或获取私有成员变量的函数就称为<strong>存取器</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">string</span> name;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">set_age</span><span class="params">(<span class="keyword">int</span> value)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">set_num</span><span class="params">(<span class="keyword">int</span> value)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">set_sex</span><span class="params">(<span class="keyword">char</span> value)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">get_age</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">char</span> <span class="title">get_sex</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">get_num</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">	<span class="keyword">char</span> sex;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="静态成员"><a href="#静态成员" class="headerlink" title="静态成员"></a>静态成员</h3><h4 id="静态成员变量"><a href="#静态成员变量" class="headerlink" title="静态成员变量"></a>静态成员变量</h4><p>上面说过，每个对象都有自己的一套独立的成员变量，但若是有一个变量所有的对象都是一样的，则没有必要让每个对象都保存一份，这样浪费空间，而且不便于修改。以上面的<strong>Student</strong>类为例，有个<strong>headmaster</strong>变量，假设这些学生都来自一个学校，那么这个变量一定是一样的，这个时候可以声明为静态成员变量。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">string</span> headmaster;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    <span class="keyword">char</span> sex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关于静态成员变量</p>
+<ol>
+<li>所有的对象都可以访问，且值是一样的</li>
+<li>在内存中只占用一份存储空间</li>
+<li>若一个对象更改它，其它成员访问时也是被更改后的</li>
+<li>只要类定义了静态成员变量，就占存储空间，不管有没有实例化对象，静态成员变量属于类</li>
+<li>若声明在类外则不需要<strong>static</strong>关键字</li>
+<li>既可以通过对象名调用，也可以通过类名调用</li>
+<li>若静态成员变量设置为<strong>private</strong>私有的，则<strong><u>只能</u></strong>通过<strong>public</strong>的静态成员函数调用</li>
+</ol>
+<h4 id="静态成员函数"><a href="#静态成员函数" class="headerlink" title="静态成员函数"></a>静态成员函数</h4><ol>
+<li>不属于对象，属于类</li>
+<li>可以通过类名调用，也可以通过对象调用</li>
+<li>可以直接访问静态成员变量，二者作用域相同，属于类</li>
+<li>没有<strong>this</strong>指针</li>
+</ol>
+<h2 id="成员函数的声明与实现"><a href="#成员函数的声明与实现" class="headerlink" title="成员函数的声明与实现"></a>成员函数的声明与实现</h2><p>声明一定要在类中，但是实现可以放在类外。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">char</span> name[<span class="number">50</span>];</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">set_age</span><span class="params">(<span class="keyword">int</span> value)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">set_num</span><span class="params">(<span class="keyword">int</span> value)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">set_sex</span><span class="params">(<span class="keyword">char</span> value)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">get_age</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">char</span> <span class="title">get_sex</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> sex;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">get_num</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> num;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">	<span class="keyword">char</span> sex;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Student::set_age</span><span class="params">(<span class="keyword">int</span> value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	age = value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Student::set_sex</span><span class="params">(<span class="keyword">char</span> value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	sex = value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Student::set_num</span><span class="params">(<span class="keyword">int</span> value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	num = value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数的实现可以全部放在类中，但若类很复杂，会导致类的代码很长，不便于阅读；比较好的写法是将将类的声明写在类中，实现写在类外。</p>
+<p>写在类外必须要用作用域修饰符<strong>::</strong>，<strong><em>Student::</em></strong></p>
+<p>也可以把声明写在头文件中，实现写在<strong>cpp</strong>文件中，这样只要在需要使用这个类的文件中包含该头文件。</p>
+<h2 id="inline内联函数"><a href="#inline内联函数" class="headerlink" title="inline内联函数"></a>inline内联函数</h2><p>使用<strong>inline</strong>关键字声明的函数叫做内联函数，可以使函数在被调用时将这段代码直接嵌入到调用的地方，可以减少函数调用的开销。</p>
+<p>函数调用需要一些准备工作：将实参、局部变量、返回地址以及若干寄存器压入栈中(保护现场)，之后才能执行函数体中的代码；执行后要清理现场，将之前压栈的数据出栈(恢复现场)，继续执行调用位置之后的代码。</p>
+<p>如果函数代码多，执行时间长，这些调用机制占用的时间便可以忽略；若函数只有一两条语句，那么大多数的时间都浪费在调用机制上，这是就可以使用<strong>inline</strong>内联函数。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>默认情况下，类体中直接实现的函数会被视为<strong>inline</strong>内联函数，上例<strong>Student</strong>类中的<code>int get_age()</code>、<code>char get_sex()</code>、<code>int get_num()</code></p>
+<p>类外直接使用<strong>inline</strong>声明就可以</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Student::set_num</span><span class="params">(<span class="keyword">int</span> value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	num = value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>一般来说，只将短小的、频繁调用的函数声明为内联函数</p>
+<h1 id="构造函数和析构函数"><a href="#构造函数和析构函数" class="headerlink" title="构造函数和析构函数"></a>构造函数和析构函数</h1><h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>一种特殊的成员函数，名字与类名相同，没有返回值，不需要显示调用，用户也不应该调用，在创建对象时自动执行，<strong>但要注意，不是它来创建对象</strong></p>
+<p>如果用户没有自定义自己的构造函数，会自动生产一个默认的空构造函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">char</span> name[<span class="number">50</span>];</span><br><span class="line">	Student(<span class="keyword">char</span> *t_name, <span class="keyword">int</span> t_age, <span class="keyword">int</span> t_num, <span class="keyword">char</span> t_sex);</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">get_age</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">char</span> <span class="title">get_sex</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> sex;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">get_num</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> num;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">	<span class="keyword">char</span> sex;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Student::Student(<span class="keyword">char</span> *t_name, <span class="keyword">int</span> t_age, <span class="keyword">int</span> t_num, <span class="keyword">char</span> t_sex)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//构造函数</span></span><br><span class="line">	<span class="built_in">strcpy</span>(name, t_name);</span><br><span class="line">	age = t_age;</span><br><span class="line">	num = t_num;</span><br><span class="line">	sex = t_sex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数初始化表"><a href="#参数初始化表" class="headerlink" title="参数初始化表"></a>参数初始化表</h3><p>用这种方法会使构造函数看起来更简洁些</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Student::Student(<span class="keyword">char</span> *t_name, <span class="keyword">int</span> t_age, <span class="keyword">int</span> t_num, <span class="keyword">char</span> t_sex) :age(t_age), num(t_num), sex(t_sex)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//构造函数</span></span><br><span class="line">	<span class="built_in">strcpy</span>(name, t_name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h2><p>析构函数也是一种特殊的成员函数，作用与构造函数相反，只有在对象的生命周期结束时会被自动调用，<strong>同样要注意不是它销毁对象</strong>，名字与类名相同，前面带上一个<code>~</code></p>
+<p>默认情况下也会自动生成一个空的析构函数</p>
+<p>会自动调用析构函数的几种情况</p>
+<ol>
+<li>在一个函数中定义了一个局部变量的对象，当这个函数结束执行就会调用</li>
+<li>全局变量或者<strong>static</strong>类型的一般在程序退出时</li>
+<li>使用<strong>new</strong>创建的对象，只有<strong>delete</strong>或者程序退出</li>
+</ol>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><p><strong>Student</strong>类中学生的<strong>name</strong>字段是固定的大小，可以动态地设置大小，在构造函数中使用<strong>new</strong>关键字，在析构函数中<strong>delete</strong>掉。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">char</span> *name;</span><br><span class="line">	Student(<span class="keyword">char</span> *t_name, <span class="keyword">int</span> t_age, <span class="keyword">int</span> t_num, <span class="keyword">char</span> t_sex);</span><br><span class="line">	~Student();</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">get_age</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">char</span> <span class="title">get_sex</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> sex;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">get_num</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> num;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">	<span class="keyword">char</span> sex;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Student::Student(<span class="keyword">char</span> *t_name, <span class="keyword">int</span> t_age, <span class="keyword">int</span> t_num, <span class="keyword">char</span> t_sex) :age(t_age), num(t_num), sex(t_sex)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//构造函数</span></span><br><span class="line">	<span class="keyword">int</span> len = <span class="built_in">strlen</span>(t_name);</span><br><span class="line">	name = <span class="keyword">new</span> <span class="keyword">char</span>[len + <span class="number">1</span>];</span><br><span class="line">	<span class="built_in">strcpy</span>(name, t_name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Student::~Student()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">delete</span>[] name;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; name &lt;&lt; <span class="string">"的析构函数被调用"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时主函数中调用，因为是在<strong>delete</strong>之后打印，所以名字应该是乱码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">Student <span class="title">stu1</span><span class="params">(<span class="string">"zhangsan"</span>, <span class="number">20</span>, <span class="number">1000</span>, <span class="string">'m'</span>)</span></span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; stu1.name &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">zhangsan</span><br><span class="line">葺葺葺葺葺葺葺葺&lt;涠2的析构函数被调用</span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
+
+<h3 id="顺序"><a href="#顺序" class="headerlink" title="顺序"></a>顺序</h3><p>值得一提的是，局部变量中的对象销毁的顺序和创建顺序相反</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">Student <span class="title">stu1</span><span class="params">(<span class="string">"zhangsan"</span>, <span class="number">20</span>, <span class="number">1000</span>, <span class="string">'m'</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu2</span><span class="params">(<span class="string">"lisi"</span>, <span class="number">20</span>, <span class="number">1001</span>, <span class="string">'m'</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu3</span><span class="params">(<span class="string">"wangwu"</span>, <span class="number">20</span>, <span class="number">1002</span>, <span class="string">'f'</span>)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	test();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从打印可以看出，销毁顺序是按照wangwu、lisi、zhangsan</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wangwu的析构函数被调用</span><br><span class="line">lisi的析构函数被调用</span><br><span class="line">zhangsan的析构函数被调用</span><br></pre></td></tr></table></figure>
+
+<p>我在网上也没有找到太详细的说法，只是和堆栈有关，堆是先进后出，先创建的在堆中偏下部分，函数从<strong>test()</strong>回到<strong>main()</strong>中，需要释放资源，清理现场，将现在的函数出栈，这样反而后创建的先出栈，先销毁。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/01/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%BC%95%E7%94%A8%E3%80%81new%E3%80%81delete/" rel="prev" title="我的c++学习笔记之引用、new、delete">
+      <i class="fa fa-chevron-left"></i> 我的c++学习笔记之引用、new、delete
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类基础"><span class="nav-number">1.</span> <span class="nav-text">类基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#面向过程与面向对象"><span class="nav-number">1.1.</span> <span class="nav-text">面向过程与面向对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的声明"><span class="nav-number">1.2.</span> <span class="nav-text">类的声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#成员访问限定符"><span class="nav-number">1.2.1.</span> <span class="nav-text">成员访问限定符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成员函数"><span class="nav-number">1.3.</span> <span class="nav-text">成员函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通成员函数"><span class="nav-number">1.3.1.</span> <span class="nav-text">普通成员函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#存取器函数"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">存取器函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态成员"><span class="nav-number">1.3.2.</span> <span class="nav-text">静态成员</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#静态成员变量"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">静态成员变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态成员函数"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">静态成员函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成员函数的声明与实现"><span class="nav-number">1.4.</span> <span class="nav-text">成员函数的声明与实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inline内联函数"><span class="nav-number">1.5.</span> <span class="nav-text">inline内联函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">1.5.1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">1.5.2.</span> <span class="nav-text">注意</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构造函数和析构函数"><span class="nav-number">2.</span> <span class="nav-text">构造函数和析构函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数"><span class="nav-number">2.1.</span> <span class="nav-text">构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数初始化表"><span class="nav-number">2.1.1.</span> <span class="nav-text">参数初始化表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#析构函数"><span class="nav-number">2.2.</span> <span class="nav-text">析构函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序"><span class="nav-number">2.2.2.</span> <span class="nav-text">顺序</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lovinglover</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lovinglover</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
