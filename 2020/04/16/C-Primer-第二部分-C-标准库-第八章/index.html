@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="C++ Primer 第二部分 C++标准库第八章 IO库8.1 IO类IO库类型与头文件    头文件 类型    iostream istream, wistream从流读取数据ostream, wostream向流写入文件iostream, wiostream读写流   fstream ifstream, wifstream从文件读取数据ofstream, wofstream向文件写入数据f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ Primer 第二部分 C++标准库 第八章">
+<meta property="og:url" content="http://yoursite.com/2020/04/16/C-Primer-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-C-%E6%A0%87%E5%87%86%E5%BA%93-%E7%AC%AC%E5%85%AB%E7%AB%A0/index.html">
+<meta property="og:site_name" content="lovinglover&#39;s Blog">
+<meta property="og:description" content="C++ Primer 第二部分 C++标准库第八章 IO库8.1 IO类IO库类型与头文件    头文件 类型    iostream istream, wistream从流读取数据ostream, wostream向流写入文件iostream, wiostream读写流   fstream ifstream, wifstream从文件读取数据ofstream, wofstream向文件写入数据f">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-16T11:09:52.000Z">
+<meta property="article:modified_time" content="2020-04-17T06:05:10.502Z">
+<meta property="article:author" content="lovinglover">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/16/C-Primer-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-C-%E6%A0%87%E5%87%86%E5%BA%93-%E7%AC%AC%E5%85%AB%E7%AB%A0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>C++ Primer 第二部分 C++标准库 第八章 | lovinglover's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">lovinglover's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">9</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/16/C-Primer-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-C-%E6%A0%87%E5%87%86%E5%BA%93-%E7%AC%AC%E5%85%AB%E7%AB%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lovinglover">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lovinglover's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C++ Primer 第二部分 C++标准库 第八章
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-16 19:09:52" itemprop="dateCreated datePublished" datetime="2020-04-16T19:09:52+08:00">2020-04-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-17 14:05:10" itemprop="dateModified" datetime="2020-04-17T14:05:10+08:00">2020-04-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-Primer/" itemprop="url" rel="index"><span itemprop="name">c++ Primer</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="C-Primer-第二部分-C-标准库"><a href="#C-Primer-第二部分-C-标准库" class="headerlink" title="C++ Primer 第二部分 C++标准库"></a>C++ Primer 第二部分 C++标准库</h1><h2 id="第八章-IO库"><a href="#第八章-IO库" class="headerlink" title="第八章 IO库"></a>第八章 IO库</h2><h3 id="8-1-IO类"><a href="#8-1-IO类" class="headerlink" title="8.1 IO类"></a>8.1 IO类</h3><p>IO库类型与头文件</p>
+<table>
+<thead>
+<tr>
+<th>头文件</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iostream</td>
+<td>istream, wistream从流读取数据<br>ostream, wostream向流写入文件<br>iostream, wiostream读写流</td>
+</tr>
+<tr>
+<td>fstream</td>
+<td>ifstream, wifstream从文件读取数据<br>ofstream, wofstream向文件写入数据<br>fstream, wfstream读写文件</td>
+</tr>
+<tr>
+<td>sstream</td>
+<td>istringstream, wistringstream从string读取数据<br>ostringstream, wostringstream向string写入数据<br>stringstream, wstringstream读写string</td>
+</tr>
+</tbody></table>
+<p>其中，w开头的类型是用来操纵wchar_t类型的宽字符的</p>
+<h4 id="8-1-1-IO对象无拷贝或赋值"><a href="#8-1-1-IO对象无拷贝或赋值" class="headerlink" title="8.1.1 IO对象无拷贝或赋值"></a>8.1.1 IO对象无拷贝或赋值</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ofstream out1, out2;</span><br><span class="line">out1 = out2;				<span class="comment">// 错误：不能对流对象赋值</span></span><br><span class="line"><span class="function">ofstream <span class="title">print</span><span class="params">(osftream)</span></span>;	<span class="comment">// 错误：不能初始化osftream参数</span></span><br><span class="line">out2 = <span class="built_in">print</span>(out2);			<span class="comment">// 错误：不能拷贝流对象</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>不能将形参或返回类型设置为流类型</li>
+<li>进行IO操作的函数通常以引用方式传递和返回流</li>
+<li>读写一个IO对象会改变其状态，因此传递和返回的引用不能是const的</li>
+</ol>
+<h4 id="8-1-2-条件状态"><a href="#8-1-2-条件状态" class="headerlink" title="8.1.2 条件状态"></a>8.1.2 条件状态</h4><p>IO类定义了一些函数和标志，帮助访问和操纵流的条件状态(condition state)</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>strm::iostate</td>
+<td>strm是一种IO类型，iostate是一种机器相关的类型，提供了表达条件状态的完整功能</td>
+</tr>
+<tr>
+<td>strm::badbit</td>
+<td>指出流已崩溃</td>
+</tr>
+<tr>
+<td>strm::failbit</td>
+<td>指出一个IO操作失败了</td>
+</tr>
+<tr>
+<td>strm::eofbit</td>
+<td>指出流到达了文件结束</td>
+</tr>
+<tr>
+<td>strm::goodbit</td>
+<td>指出流未处于错误状态。此值保证为零</td>
+</tr>
+<tr>
+<td>s.eof()</td>
+<td>若流s的eofbit置位，则返回true</td>
+</tr>
+<tr>
+<td>s.fail()</td>
+<td>若流s的failbit或badbit置位，返回true</td>
+</tr>
+<tr>
+<td>s.bad()</td>
+<td>若流s的badbit置位，返回true</td>
+</tr>
+<tr>
+<td>s.good()</td>
+<td>若流s处于有效状态，则返回true</td>
+</tr>
+<tr>
+<td>s.clear()</td>
+<td>若流s中所有条件状态位复位，将流的状态设置为有效。返回void</td>
+</tr>
+<tr>
+<td>s.clear(flags)</td>
+<td>根据给定的flags标志位，将流s中对应条件状态位复位。flags的类型位strm::iostate。返回void</td>
+</tr>
+<tr>
+<td>s.setstate(flags)</td>
+<td>根据给定的flags标志位，将流s中对应条件状态位置位。flags的类型位strm::iostate。返回void</td>
+</tr>
+<tr>
+<td>s.rdstate()</td>
+<td>返回流s的当前条件状态，返回值类型为strm::iostate</td>
+</tr>
+</tbody></table>
+<p>一个流一旦发生错误，其上后续的IO操作都会失败。只有当流处于无错状态时，才可以从它读取数据，向它写入数据。</p>
+<p>确定一个流对象状态最简单的方法就是将它当成一个条件使用：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="built_in">cin</span> &gt;&gt; <span class="keyword">word</span>)</span><br><span class="line">    <span class="comment">// 操作......</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>管理条件状态</strong></p>
+<p>流对象的rdstate成员返回一个iostate值，对应流的当前状态。</p>
+<p>setstate操作将给定条件置位，表示发生了对应错误。</p>
+<p>clear成员是一个重载的成员，有一个不接受参数的版本，另一个版本接受一个iostate类型参数。</p>
+<p>不接受参数版本清除(复位所有错误标志位，执行clear()后，调用good会返回true。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> old_state = <span class="built_in">cin</span>.rdstate();			<span class="comment">// 记住当前状态</span></span><br><span class="line"><span class="built_in">cin</span>.<span class="built_in">clear</span>();							<span class="comment">// 使cin有效</span></span><br><span class="line">process_input(<span class="built_in">cin</span>);						<span class="comment">// 使用cin</span></span><br><span class="line"><span class="built_in">cin</span>.setstate(old_state);				<span class="comment">// 恢复原有状态</span></span><br></pre></td></tr></table></figure>
+
+<p>带参数的clear版本接受一个iostate值，表示流的新状态。为复位单一的条件状态位，先用rdstate读出当前条件状态，用位操作符将所需位复位生成新的状态</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 复位failbit和badbit，其他标志位不变</span></span><br><span class="line"><span class="built_in">cin</span>.<span class="built_in">clear</span>(<span class="built_in">cin</span>.rdstate() &amp; ~<span class="built_in">cin</span>.failbit &amp; ~<span class="built_in">cin</span>.badbit);</span><br></pre></td></tr></table></figure>
+
+<h4 id="8-1-3-管理输出缓冲"><a href="#8-1-3-管理输出缓冲" class="headerlink" title="8.1.3 管理输出缓冲"></a>8.1.3 管理输出缓冲</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os &lt;&lt; <span class="string">"please enter a value"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>执行这行代码，文本串可能立即打印，也有可能被保存到缓冲区，随后打印。</p>
+<p>缓冲机制使得操作系统可以将程序的多个输出操作组合成单一的系统级写操作，带来性能提升。</p>
+<p>导致缓冲刷新(即：数据真正写到输出设备或者文件)的原有有很多：</p>
+<ul>
+<li>程序正常结束，作为main函数的return操作的一部分，缓冲刷新被执行</li>
+<li>缓冲区满，需要刷新缓冲，使得新的数据可以写入缓冲区</li>
+<li>使用操纵符如endl来显示刷新缓冲区</li>
+<li>每个输出操作后，使用操纵符unitbuf设置流内部状态，清空缓冲区。默认情况下，对cerr是设置unitbuf的，因此写到cerr的内容都是立即刷新的</li>
+<li>一个输出流可能被关联到另外一个流。这种情况下，当读写被关联的流时，关联到的流的缓冲区会被刷新。如默认情况下，cin和cerr都关联到cout，因此读cin或者写cerr都会导致cout的缓冲区被刷新</li>
+</ul>
+<p><strong>刷新输出缓冲区</strong></p>
+<p>endl、flush、ends</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"hi!"</span> &lt;&lt; <span class="built_in">endl</span>;			<span class="comment">// 输出hi和一个换行，然后刷新缓冲区</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"hi!"</span> &lt;&lt; <span class="built_in">flush</span>;			<span class="comment">// 输出hi，然后刷新缓冲区，不附加任何额外字符</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"hi!"</span> &lt;&lt; ends;			<span class="comment">// 输出hi和一个空字符，然后刷新缓冲区</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>unitbuf操纵符</strong></p>
+<p>unitbuf告诉流在接下来的每次写操作之后都执行一次flush操纵；nounitbuf操纵符重置流，使其恢复正常的系统管理的缓冲区刷新机制</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; unitbuf;</span><br><span class="line"><span class="comment">// 之后的任何输出都立即刷新，没有缓冲</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; nounitbuf;		<span class="comment">// 回到正常的缓冲方式</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>警告：若程序崩溃，输出缓冲区不会被刷新</strong></p>
+<p>当一个程序崩溃后，它所输出的数据很可能停留在输出缓冲区等待打印。调试这样的程序时，需要确认你认为已经输出的数据确实已经刷新了，否则会浪费大量时间追踪代码为什么没有执行，但实际上已经执行，只是缓冲区没有刷新，数据数据未打印。</p>
+<h3 id="8-2-文件输入输出"><a href="#8-2-文件输入输出" class="headerlink" title="8.2 文件输入输出"></a>8.2 文件输入输出</h3><p><strong>fstream</strong>特有的操作</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>fstream fstrm;</td>
+<td>创建一个未绑定的文件流，fstream时头文件fstream中定义的一个类型</td>
+</tr>
+<tr>
+<td>fstream fstrm(s);</td>
+<td>创建一个fstream，并打开名为s的文件，s可以时string类型。默认的文件模式mode依赖于fstream的类型</td>
+</tr>
+<tr>
+<td>fstream fstrm(s, mode);</td>
+<td>按指定mode打开文件</td>
+</tr>
+<tr>
+<td>fstrm.open(s)；</td>
+<td>打开名为s的文件，并与fstrm绑定。默认的文件模式mode依赖于fstream的类型。返回void</td>
+</tr>
+<tr>
+<td>fstrm.close();</td>
+<td>关闭于fstrm绑定的文件，返回void</td>
+</tr>
+<tr>
+<td>fstrm.is_open();</td>
+<td>返回一个bool值，指出与fstrm关联的文件是否正常打开且尚未关闭</td>
+</tr>
+</tbody></table>
+<h4 id="8-2-1-使用文件流对象"><a href="#8-2-1-使用文件流对象" class="headerlink" title="8.2.1 使用文件流对象"></a>8.2.1 使用文件流对象</h4><p>创建文件流对象时，若提供了文件名，open会被自动调用</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">isftream <span class="title">in</span><span class="params">(ifile)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>定义一个输入流in，被初始化为从文件读取数据，ifile是string类型的</p>
+<p><strong>成员函数open和close</strong></p>
+<p>可以使用open将文件与空文件流对象关联</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ifstream <span class="title">in</span><span class="params">(iflie)</span></span>;				<span class="comment">// 构筑一个ifstream并打开给定文件</span></span><br><span class="line">ofstream out;</span><br><span class="line">out.<span class="built_in">open</span>(ifile + <span class="string">".copy"</span>);		<span class="comment">// 打开指定文件，与out绑定</span></span><br><span class="line">in.<span class="built_in">close</span>();						<span class="comment">// 关闭文件</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="8-2-2-文件模式"><a href="#8-2-2-文件模式" class="headerlink" title="8.2.2 文件模式"></a>8.2.2 文件模式</h4><table>
+<thead>
+<tr>
+<th>文件模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>in</td>
+<td>读方式打开</td>
+</tr>
+<tr>
+<td>out</td>
+<td>写方式打开</td>
+</tr>
+<tr>
+<td>app</td>
+<td>每次写操作前均定位到文件末尾</td>
+</tr>
+<tr>
+<td>ate</td>
+<td>打开文件后立即定位到文件末尾</td>
+</tr>
+<tr>
+<td>trunc</td>
+<td>截断文件</td>
+</tr>
+<tr>
+<td>binary</td>
+<td>二进制方式进行IO</td>
+</tr>
+</tbody></table>
+<p>指定文件模式有如下限制：</p>
+<ul>
+<li>只可以对ofstream或fstream对象设定out模式</li>
+<li>只可以对ifstream或fstream对象设定in模式</li>
+<li>只有当out也被设定时才可以设定trunc模式</li>
+<li>只要trunc没被设定，就可以设定app模式。在app模式下，即使没有显示的设置out模式，文件也是以输出方式被打开</li>
+<li>默认情况下，即使没有设定trunc，以out模式打开的文件也会被截断。为了保留以out模式打开的文件的内容，必须同时指定app模式，这样只会将数据追加到文件末尾；或者同时指定in模式，同时读写</li>
+<li>ate和binary模式可以用于任何类型的文件流对象，且可以和其他任何文件模式组合使用</li>
+</ul>
+<p>每个文件流都定义了一个默认的文件模式：ifstream关联的文件默认以in模式打开；ofstream关联的文件默认以out模式打开；fstream关联的文件默认以in和out模式打开</p>
+<h3 id="8-3-string流"><a href="#8-3-string流" class="headerlink" title="8.3 string流"></a>8.3 string流</h3><p><strong>stringstream</strong>特有的操作</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sstream strm;</td>
+<td>strm是个未绑定的stringstream对象。sstream是头文件sstream定义的一个类型</td>
+</tr>
+<tr>
+<td>sstream strm(s);</td>
+<td>strm是sstream对象，保存string s的一个拷贝</td>
+</tr>
+<tr>
+<td>strm.str();</td>
+<td>返回strm保存的string拷贝</td>
+</tr>
+<tr>
+<td>strm.str(s);</td>
+<td>将string s拷贝到strm中。返回void</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/15/C-Primer-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-C-%E5%9F%BA%E7%A1%80-%E7%AC%AC%E4%B8%89%E7%AB%A0/" rel="prev" title="C++ Primer 第一部分 C++基础 第三章">
+      <i class="fa fa-chevron-left"></i> C++ Primer 第一部分 C++基础 第三章
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-Primer-第二部分-C-标准库"><span class="nav-number">1.</span> <span class="nav-text">C++ Primer 第二部分 C++标准库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第八章-IO库"><span class="nav-number">1.1.</span> <span class="nav-text">第八章 IO库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-IO类"><span class="nav-number">1.1.1.</span> <span class="nav-text">8.1 IO类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-1-IO对象无拷贝或赋值"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">8.1.1 IO对象无拷贝或赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-2-条件状态"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">8.1.2 条件状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-3-管理输出缓冲"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">8.1.3 管理输出缓冲</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-文件输入输出"><span class="nav-number">1.1.2.</span> <span class="nav-text">8.2 文件输入输出</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-1-使用文件流对象"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">8.2.1 使用文件流对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-2-文件模式"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">8.2.2 文件模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-string流"><span class="nav-number">1.1.3.</span> <span class="nav-text">8.3 string流</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lovinglover</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lovinglover</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
