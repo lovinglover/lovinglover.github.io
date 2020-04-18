@@ -120,7 +120,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">9</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">10</span></a>
 
   </li>
   </ul>
@@ -145,6 +145,146 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/17/C-Primer-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-C-%E6%A0%87%E5%87%86%E5%BA%93-%E7%AC%AC%E4%B9%9D%E7%AB%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lovinglover">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lovinglover's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/17/C-Primer-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-C-%E6%A0%87%E5%87%86%E5%BA%93-%E7%AC%AC%E4%B9%9D%E7%AB%A0/" class="post-title-link" itemprop="url">C++ Primer 第二部分 C++标准库 第九章</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-17 14:07:34" itemprop="dateCreated datePublished" datetime="2020-04-17T14:07:34+08:00">2020-04-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-18 22:18:07" itemprop="dateModified" datetime="2020-04-18T22:18:07+08:00">2020-04-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-Primer/" itemprop="url" rel="index"><span itemprop="name">c++ Primer</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="C-Primer-第二部分-C-标准库"><a href="#C-Primer-第二部分-C-标准库" class="headerlink" title="C++ Primer 第二部分 C++标准库"></a>C++ Primer 第二部分 C++标准库</h1><h2 id="第九章-顺序容器"><a href="#第九章-顺序容器" class="headerlink" title="第九章 顺序容器"></a>第九章 顺序容器</h2><p>一个容器就是一些特定类型对象的集合。<strong>顺序容器(sequential container)</strong>为程序员提供了控制元素存储和访问顺序的能力。这种顺序不依赖于元素的值，而是与元素加入容器时的位置对应。</p>
+<h3 id="9-1-顺序容器概述"><a href="#9-1-顺序容器概述" class="headerlink" title="9.1 顺序容器概述"></a>9.1 顺序容器概述</h3><p>下表列出了标准库中的顺序容器，使用顺序容器都提供了快速顺序访问的元素的能力。但是，这些容器在一些方面有不同的性能折中</p>
+<ul>
+<li>向容器添加或从容器中删除元素的代价</li>
+<li>非顺序访问容器中元素的代价</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>容器类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>vector</td>
+<td>可变大小数组，指出快速随机访问。在尾部之外的位置插入或者删除元素可能很慢</td>
+</tr>
+<tr>
+<td>deque</td>
+<td>双端队列。支持快速随机访问，在头尾位置插入/删除元素速度很快</td>
+</tr>
+<tr>
+<td>list</td>
+<td>双向链表。只支持双向顺序访问，在list中任何位置插入/删除操作速度都很快</td>
+</tr>
+<tr>
+<td>forward_list</td>
+<td>单项链表。只支持单向顺序访问，在链表任何位置插入/删除操作速度都很快</td>
+</tr>
+<tr>
+<td>array</td>
+<td>固定大小数组。支持快速随机访问，不能添加或者删除元素</td>
+</tr>
+<tr>
+<td>string</td>
+<td>与vector类似的容器，专门用来保存字符。随机访问快，在尾部插入/删除速度快</td>
+</tr>
+</tbody></table>
+<p><strong>确定使用哪种顺序容器</strong></p>
+<ul>
+<li>除非你有很好的利用选择其他容器，否则应该使用vector</li>
+<li>如果你的程序有很多小的元素，且空间的额外开销很重要，则不要使用list或者forward_list</li>
+<li>如果程序要求随机访问元素，应该使用vector或deque</li>
+<li>如果程序要求在容器的中间插入或删除元素，应该使用list或forward_list</li>
+<li>如果程序需要在头尾位置插入删除元素，但不会在中间位置插入删除元素，使用deque</li>
+<li>如果程序只有在读取输入时才需要在容器中间位置插入元素，随后需要随机访问元素，则<ul>
+<li>首先，确定是否真的要在容器中间位置添加元素。当处理输入数据时，通常可以很容易向vector追加数据，然后调用标准库的sort函数来重排容器中元素，从而避免在中间位置添加元素</li>
+<li>如果必须在中间位置插入，考虑在输入阶段使用list，一旦输入完成，将list中内容拷贝到一个vector中</li>
+</ul>
+</li>
+</ul>
+<p>一般来说，应用中站主导地位的操作(访问操作还是插入/删除)决定了容器类型的选择。</p>
+<p><em>如果不确定使用哪种容器，可以在程序中只使用vector和list的公共操作：迭代器，不用下标操作，避免随机访问。这样在必要时选择使用vector和list都方便。</em></p>
+<h3 id="9-2-容器库概览"><a href="#9-2-容器库概览" class="headerlink" title="9.2 容器库概览"></a>9.2 容器库概览</h3><p>容器类型上的操作形成了一种层次：</p>
+<ul>
+<li>某些操作时所有容器类型都提供的</li>
+<li>另外一些操作仅针对顺序容器、关联容器或无序容器</li>
+<li>还有一些操作只适用于一小部分容器</li>
+</ul>
+<p>一般来说，每个容器都定义在一个头文件中，文件名和类型名相同</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/17/C-Primer-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-C-%E6%A0%87%E5%87%86%E5%BA%93-%E7%AC%AC%E4%B9%9D%E7%AB%A0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1339,7 +1479,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
