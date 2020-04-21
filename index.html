@@ -120,7 +120,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">11</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">12</span></a>
 
   </li>
   </ul>
@@ -145,6 +145,126 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/21/C-Primer-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-C-%E6%A0%87%E5%87%86%E5%BA%93-%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lovinglover">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lovinglover's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/21/C-Primer-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-C-%E6%A0%87%E5%87%86%E5%BA%93-%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0/" class="post-title-link" itemprop="url">C++ Primer 第二部分 C++标准库 第十一章</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-21 09:36:27 / 修改时间：15:41:43" itemprop="dateCreated datePublished" datetime="2020-04-21T09:36:27+08:00">2020-04-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-Primer/" itemprop="url" rel="index"><span itemprop="name">c++ Primer</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="C-Primer-第二部分-C-标准库"><a href="#C-Primer-第二部分-C-标准库" class="headerlink" title="C++ Primer 第二部分 C++标准库"></a>C++ Primer 第二部分 C++标准库</h1><h2 id="第十一章-关联容器"><a href="#第十一章-关联容器" class="headerlink" title="第十一章 关联容器"></a>第十一章 关联容器</h2><p>关联容器支持高效的关键字查找和访问。两个主要的<strong>关联容器(associative-container)</strong>类型是<strong>map</strong>和<strong>set</strong>。map中元素是关键字-值对(键值对key-value)：关键字起到索引作用， 值表示与所以关联的数据。set中每个元素只包含一个关键字，set支持高效的关键字查询-给定关键字是否在set中。</p>
+<p>标准库提供8个关联容器，map和multimap定义在头文件map中；set和multiset定义在头文件set中；无序容器定义在头文件unordered_map和unordered_set中。</p>
+<table>
+<thead>
+<tr>
+<th>关联容器</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>map</td>
+<td>保存键值对</td>
+</tr>
+<tr>
+<td>set</td>
+<td>关键字即值，只保存关键字</td>
+</tr>
+<tr>
+<td>multimap</td>
+<td>关键字可以重复出现的map</td>
+</tr>
+<tr>
+<td>multiset</td>
+<td>关键字可以重复出现的set</td>
+</tr>
+<tr>
+<td>unordered_map</td>
+<td>用哈希函数组织的map</td>
+</tr>
+<tr>
+<td>unordered_set</td>
+<td>用哈希函数组织的set</td>
+</tr>
+<tr>
+<td>unordered_multimap</td>
+<td>关键字可以重复出现的用哈希组织的map</td>
+</tr>
+<tr>
+<td>unordered_multiset</td>
+<td>关键字可以重复出现的用哈希组织的set</td>
+</tr>
+</tbody></table>
+<h3 id="11-1-使用map和set"><a href="#11-1-使用map和set" class="headerlink" title="11.1 使用map和set"></a>11.1 使用map和set</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt; word_count;			<span class="comment">// 定义一个空map</span></span><br><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; ex = &#123; <span class="string">"a"</span>, <span class="string">"an"</span>, <span class="string">"the"</span> &#125;;</span><br><span class="line"><span class="built_in">string</span> <span class="keyword">word</span>;</span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">cin</span> &gt;&gt; <span class="keyword">word</span>) &#123;</span><br><span class="line">    <span class="comment">// 只统计不在ex中的word</span></span><br><span class="line">	<span class="keyword">if</span>(ex.<span class="built_in">find</span>(<span class="keyword">word</span>) == ex.<span class="built_in">end</span>())</span><br><span class="line">		++word_count[<span class="keyword">word</span>];</span><br><span class="line">    <span class="comment">// 停止循环</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">cin</span>.<span class="built_in">get</span>() == <span class="string">'\n'</span>)</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;w : word_count)</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; w.first &lt;&lt; <span class="string">" occurs "</span> &lt;&lt; w.second</span><br><span class="line">	&lt;&lt; ((w.second &gt; <span class="number">1</span>) ? <span class="string">" times"</span> : <span class="string">" time"</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="11-2-关联容器概述"><a href="#11-2-关联容器概述" class="headerlink" title="11.2 关联容器概述"></a>11.2 关联容器概述</h3><p>关联容器(有序和无序)都支持普通容器的操作，但不支持顺序容器的位置相关操作，如push_front这种。也不接受构造函数或插入函数这样接受一个元素值和一个数量值的操作。</p>
+<p>关联容器的迭代器都是双向的。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/21/C-Primer-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-C-%E6%A0%87%E5%87%86%E5%BA%93-%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1334,94 +1454,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="lovinglover">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lovinglover's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/29/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">我的c++学习笔记之字符串处理函数</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-29 20:00:21" itemprop="dateCreated datePublished" datetime="2020-02-29T20:00:21+08:00">2020-02-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-03 18:06:46" itemprop="dateModified" datetime="2020-03-03T18:06:46+08:00">2020-03-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">c++学习笔记</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>使用这些内置的字符串处理函数需要包括头文件,使用语句<code>#include &lt;string&gt;</code></p>
-<h1 id="连接函数strcat"><a href="#连接函数strcat" class="headerlink" title="连接函数strcat"></a>连接函数<em>strcat</em></h1><p>该函数的定义原型为：</p>
-<p><code>char * strcat(char * destination, const char * source);</code></p>
-<p>函数的作用是将第二个字符串追加到第一个字符串后面，不会改变第二个字符串，得到的结果是<strong>destination = destination + source</strong>，函数返回第一个字符串的首地址。</p>
-<p><strong>注意：</strong>这里必须保证<strong>destination</strong>的总长度足够</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> des[<span class="number">50</span>] = <span class="string">"Hello"</span>;</span><br><span class="line">	<span class="keyword">char</span> sou[] = <span class="string">"World"</span>;</span><br><span class="line">	<span class="built_in">strcat</span>(des, sou);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; des &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output&gt;&gt;HelloWorld</span><br></pre></td></tr></table></figure>
-
-<p>需要满足总长度要大于等于二者字符串长度之和<strong>再加1</strong>，因为还有一个<code>&#39;\0&#39;</code>结束符，即这里的最小长度是<strong>11</strong>，<del>而不是10</del></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/29/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1492,7 +1524,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
