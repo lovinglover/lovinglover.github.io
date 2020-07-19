@@ -115,12 +115,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">2</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">3</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">14</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">15</span></a>
 
   </li>
   </ul>
@@ -145,6 +145,238 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/17/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lovinglover">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lovinglover's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/17/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/" class="post-title-link" itemprop="url">面试问题汇总</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-17 14:17:27" itemprop="dateCreated datePublished" datetime="2020-07-17T14:17:27+08:00">2020-07-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-19 22:27:42" itemprop="dateModified" datetime="2020-07-19T22:27:42+08:00">2020-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">面试相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="1-野指针"><a href="#1-野指针" class="headerlink" title="1.野指针"></a>1.野指针</h5><p>指向不可用内存区域的指针，成因有三种：</p>
+<ul>
+<li>指针变量没有初始化，在创建是未初始化的指针会拥有一个不确定的值</li>
+<li>delete后没有指向nullptr，delete只是把指针所指内存释放，没有干掉指针本身</li>
+<li>超出作用域，不要返回指向栈内存的指针或引用，因为栈内存在函数结束时会被释放</li>
+</ul>
+<p>产生根本原因，指针的拷贝(电魂)</p>
+<h5 id="2-内存泄漏"><a href="#2-内存泄漏" class="headerlink" title="2.内存泄漏"></a>2.内存泄漏</h5><p>用动态存储分配函数动态开辟的空间，使用完后没有释放，一直占据该内存单元格</p>
+<p>指堆内存的泄露</p>
+<p>程序运行时间越长，占用内存越多</p>
+<h5 id="3-命名空间"><a href="#3-命名空间" class="headerlink" title="3.命名空间"></a>3.命名空间</h5><p>解决命名冲突问题</p>
+<p>分为有名命名空间和无名命名空间</p>
+<ul>
+<li>无名命名空间没有名字，其他文件无法引用，只在本文件作用域内有效</li>
+</ul>
+<p>使用：</p>
+<ul>
+<li>使用整个命名空间 <code>using namespace std</code></li>
+<li>使用命名空间中变量 <code>using std::cin</code></li>
+<li>使用时 <code>std::cin</code></li>
+</ul>
+<h5 id="4-结构体、联合、枚举"><a href="#4-结构体、联合、枚举" class="headerlink" title="4.结构体、联合、枚举"></a>4.结构体、联合、枚举</h5><p>C++对C语言的结构体、联合、枚举做了拓展，都是类型名，可以直接用于变量的声明、定义</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//head.h</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> color &#123;red,blak,white,blue,yellow&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">student</span> &#123;</span><span class="keyword">char</span> name[<span class="number">6</span>]; <span class="keyword">int</span> age; <span class="keyword">int</span> num;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span> score &#123;<span class="keyword">int</span> i_sc; <span class="keyword">float</span> f_sc;&#125;; </span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"head.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    color en_col;</span><br><span class="line">    student st_stu;</span><br><span class="line">    score un_sc;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//....</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>C++中的结构体、联合体都可以定义函数</p>
+<p><strong>struct和class区别</strong></p>
+<p>struct也是一种类，与class一样，可以包括成员函数，可以继承，可以实现多态</p>
+<p>但是</p>
+<ol>
+<li>默认访问权限<ol>
+<li>class默认时private</li>
+<li>struct默认时public</li>
+</ol>
+</li>
+<li>默认的继承访问权限<ol>
+<li>class默认private</li>
+<li>struct默认public</li>
+</ol>
+</li>
+<li>class可以用于定义模板</li>
+</ol>
+<p><strong>union和class区别</strong></p>
+<p>union成员共用一组内存单元，任何两个成员不会同时有效</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="keyword">double</span> k;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	n = <span class="number">10</span>;</span><br><span class="line">	k = <span class="number">2.2</span>;		<span class="comment">//给k赋值后，之前n的值(10)就会被冲掉</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>union可以定义函数，包括构造析构，支持访问权限</p>
+<p>但是</p>
+<ol>
+<li>union不支持继承</li>
+<li>union不能定义虚函数</li>
+<li>union默认访问权限public</li>
+<li>union的成员类型比class少<ol>
+<li>union的东西共享内存，静态、引用不能用</li>
+</ol>
+</li>
+</ol>
+<p><strong>枚举</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> fruit_set &#123;apple, orange, banana=<span class="number">1</span>, peach, grape&#125;</span><br><span class="line"><span class="comment">//枚举常量apple=0,orange=1, banana=1,peach=2,grape=3。</span></span><br><span class="line"><span class="keyword">enum</span> week &#123;Sun=<span class="number">7</span>, Mon=<span class="number">1</span>, Tue, Wed, Thu, Fri, Sat&#125;;</span><br><span class="line"><span class="comment">//枚举常量Sun,Mon,Tue,Wed,Thu,Fri,Sat的值分别为7、1、2、3、4、5、6。</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="5-字符数组和string的转换"><a href="#5-字符数组和string的转换" class="headerlink" title="5.字符数组和string的转换"></a>5.字符数组和string的转换</h5><p><strong>char[]转string</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用构造函数</span></span><br><span class="line"><span class="keyword">char</span> ch [] = <span class="string">"ABCDEFG"</span>;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">str</span><span class="params">(ch)</span></span>;<span class="comment">//也可string str = ch;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 用拷贝函数</span></span><br><span class="line"><span class="keyword">char</span> ch [] = <span class="string">"ABCDEFG"</span>;</span><br><span class="line"><span class="built_in">string</span> str = ch;</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-memcpy和strcpy"><a href="#6-memcpy和strcpy" class="headerlink" title="6.memcpy和strcpy"></a>6.memcpy和strcpy</h5><p>都是标准c库函数，strcpy拷贝字符串</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">char str1[10]='',str2[]=&#123;"China"&#125;;  </span><br><span class="line"><span class="built_in">strcpy</span>(str1,str2);</span><br></pre></td></tr></table></figure>
+
+<p>memcpy是内存拷贝函数，从源所指的内存地址的起始位置开始拷贝n个到目标所指的内存地址的起始位置</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *s1 = <span class="string">"csdn"</span>;  </span><br><span class="line"><span class="keyword">char</span> *s2 = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">10</span>];  </span><br><span class="line"><span class="keyword">char</span> *s3 = <span class="built_in">memcpy</span>(s2,s1,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<p>区别：</p>
+<ul>
+<li>strcpy只能复制字符串，memcpy可以复制任意内容</li>
+<li>strcpy不需要指定长度，遇到’\0’结束，容易溢出；memcpy根据接受的第三个参数决定复制的长度</li>
+</ul>
+<h5 id="7-虚函数"><a href="#7-虚函数" class="headerlink" title="7.虚函数"></a>7.虚函数</h5><p>动态绑定，并不是在编译时被确定，而是在运行时被确定</p>
+<p>虚函数是多态的实现方式</p>
+<p>在用父类指针调用函数时，实际调用的时指针指向的实际类型的成员函数，虚函数是加了virtual修饰词的成员函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">v_func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"基类的虚函数"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"基类的普通函数"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> :</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">v_func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"类A的虚函数"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"类A的普通函数"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> :</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">v_func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"类B的虚函数"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"类B普通函数"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Base *base = <span class="keyword">new</span> Base;</span><br><span class="line">	A *a = <span class="keyword">new</span> A;</span><br><span class="line">	B *b = <span class="keyword">new</span> B;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"--------------------------------------"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	base-&gt;v_func();</span><br><span class="line">	a-&gt;v_func();</span><br><span class="line">	b-&gt;v_func();</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"--------------------------------------"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	base-&gt;func();</span><br><span class="line">	a-&gt;func();</span><br><span class="line">	b-&gt;func();</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"--------------------------------------"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">dynamic_cast</span>&lt;Base*&gt;(a)-&gt;v_func();</span><br><span class="line">	<span class="keyword">dynamic_cast</span>&lt;Base*&gt;(a)-&gt;func();</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"--------------------------------------"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">--------------------------------------</span><br><span class="line">基类的虚函数</span><br><span class="line">类A的虚函数</span><br><span class="line">类B的虚函数</span><br><span class="line">--------------------------------------</span><br><span class="line">基类的普通函数</span><br><span class="line">类A的普通函数</span><br><span class="line">类B普通函数</span><br><span class="line">--------------------------------------</span><br><span class="line">类A的虚函数</span><br><span class="line">基类的普通函数</span><br><span class="line">--------------------------------------</span><br></pre></td></tr></table></figure>
+
+<p>父类指针调用虚函数时，由指针实际指向的对象决定，普通函数由指针类型决定</p>
+<p>纯虚函数，<code>virtual void v_func()=0</code>，在基类中不定义，但是任何派生类都要定义其实现，包含纯虚函数的类是抽象类，不能实例化对象</p>
+<p><strong>虚表</strong></p>
+<p>在编译期建立，每个包含虚函数的类都有一个虚表，虚表是一个指针数组，每个元素对应一个虚函数的函数指针。</p>
+<p>虚表属于类，同一个类的所有对象共用一个虚表，对象内存布局最开始四个字节就是虚函数表指针(32位)，这个指针就是虚表地址</p>
+<p><img src="/2020/07/17/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/1.png" alt></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Base base;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; &amp;base &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">auto</span> vt_addr = *(<span class="keyword">int</span>*)&amp;base;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="keyword">typeid</span>(vt_addr).name() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"虚表的地址："</span> &lt;&lt; vt_addr &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">auto</span> vf_addr = *(<span class="keyword">int</span>*)vt_addr;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="keyword">typeid</span>(vf_addr).name() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"虚函数："</span> &lt;&lt; vf_addr &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">((<span class="keyword">void</span>(*)(<span class="keyword">void</span>))vf_addr)();</span><br><span class="line"></span><br><span class="line">&gt;&gt;输出：</span><br><span class="line"><span class="number">0135F</span>ECC</span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">虚表的地址：<span class="number">5479220</span></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">虚函数：<span class="number">5444539</span></span><br><span class="line">基类的虚函数</span><br></pre></td></tr></table></figure>
+
+<p>假设 pa 的类型是 A*，则 pa-&gt;func() 这条语句的执行过程如下：</p>
+<p>1) 取出 pa 指针所指位置的前 4 个字节，即对象所属的类的虚函数表的地址（在 64 位编译模式下，由于指针占 8 个字节，所以要取出 8 个字节）。如果 pa 指向的是类 A 的对象，则这个地址就是类 A 的虚函数表的地址；如果 pa 指向的是类 B 的对象，则这个地址就是类 B 的虚函数表的地址。</p>
+<p>2) 根据虚函数表的地址找到虚函数表，在其中查找要调用的虚函数的地址。不妨认为虚函数表是以函数名作为索引来查找的，虽然还有更高效的查找方法。</p>
+<p>如果 pa 指向的是类 A 的对象，自然就会在类 A 的虚函数表中查出 A::func 的地址；如果 pa 指向的是类 B 的对象，就会在类 B 的虚函数表中查出 B::func 的地址。</p>
+<p>类 B 没有自己的 func2 函数，因此在类 B 的虚函数表中保存的是 A::func2 的地址，这样，即便 pa 指向类 B 的对象，<code>pa-&gt;func2();</code>这条语句在执行过程中也能在类 B 的虚函数表中找到 A::func2 的地址。</p>
+<p>3) 根据找到的虚函数的地址调用虚函数。</p>
+<h5 id="8-http状态码"><a href="#8-http状态码" class="headerlink" title="8.http状态码"></a>8.http状态码</h5><p>1XX—消息</p>
+<p>2XX—成功</p>
+<p>3XX—重定向</p>
+<p>4XX—客户端错误</p>
+<ul>
+<li>400 bad request 格式错误等</li>
+<li>403 forbidden 服务器理解请求，拒绝执行</li>
+<li>404 not found 资源未在服务器上发现</li>
+</ul>
+<p>5XX—服务的错误</p>
+<h5 id="9-tcp三次握手与四次挥手"><a href="#9-tcp三次握手与四次挥手" class="headerlink" title="9.tcp三次握手与四次挥手"></a>9.tcp三次握手与四次挥手</h5><p><img src="/2020/07/17/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/2.png" alt></p>
+<ul>
+<li><p>第一次握手(SYN=1, seq=x):</p>
+<p>客户端发送一个 TCP 的 SYN 标志位置1的包，指明客户端打算连接的服务器的端口，以及初始序号 X,保存在包头的序列号(Sequence Number)字段里。</p>
+<p>发送完毕后，客户端进入 <code>SYN_SEND</code> 状态。</p>
+</li>
+<li><p>第二次握手(SYN=1, ACK=1, seq=y, ACKnum=x+1):</p>
+<p>服务器发回确认包(ACK)应答。即 SYN 标志位和 ACK 标志位均为1。服务器端选择自己 ISN 序列号，放到 Seq 域里，同时将确认序号(Acknowledgement Number)设置为客户的 ISN 加1，即X+1。 发送完毕后，服务器端进入 <code>SYN_RCVD</code> 状态。</p>
+</li>
+<li><p>第三次握手(ACK=1，ACKnum=y+1)</p>
+<p>客户端再次发送确认包(ACK)，SYN 标志位为0，ACK 标志位为1，并且把服务器发来 ACK 的序号字段+1，放在确定字段中发送给对方，并且在数据段放写ISN的+1</p>
+<p>发送完毕后，客户端进入 <code>ESTABLISHED</code> 状态，当服务器端接收到这个包时，也进入 <code>ESTABLISHED</code> 状态，TCP 握手结束。</p>
+</li>
+</ul>
+<p><img src="/2020/07/17/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/3.png" alt></p>
+<ul>
+<li><p>第一次挥手(FIN=1，seq=x)</p>
+<p>假设客户端想要关闭连接，客户端发送一个 FIN 标志位置为1的包，表示自己已经没有数据可以发送了，但是仍然可以接受数据。</p>
+<p>发送完毕后，客户端进入 <code>FIN_WAIT_1</code> 状态。</p>
+</li>
+<li><p>第二次挥手(ACK=1，ACKnum=x+1)</p>
+<p>服务器端确认客户端的 FIN 包，发送一个确认包，表明自己接受到了客户端关闭连接的请求，但还没有准备好关闭连接。</p>
+<p>发送完毕后，服务器端进入 <code>CLOSE_WAIT</code> 状态，客户端接收到这个确认包之后，进入 <code>FIN_WAIT_2</code> 状态，等待服务器端关闭连接。</p>
+</li>
+<li><p>第三次挥手(FIN=1，seq=y)</p>
+<p>服务器端准备好关闭连接时，向客户端发送结束连接请求，FIN 置为1。</p>
+<p>发送完毕后，服务器端进入 <code>LAST_ACK</code> 状态，等待来自客户端的最后一个ACK。</p>
+</li>
+<li><p>第四次挥手(ACK=1，ACKnum=y+1)</p>
+<p>客户端接收到来自服务器端的关闭请求，发送一个确认包，并进入 <code>TIME_WAIT</code>状态，等待可能出现的要求重传的 ACK 包。</p>
+<p>服务器端接收到这个确认包之后，关闭连接，进入 <code>CLOSED</code> 状态。</p>
+<p>客户端等待了某个固定时间（两个最大段生命周期，2MSL，2 Maximum Segment Lifetime）之后，没有收到服务器端的 ACK ，认为服务器端已经正常关闭连接，于是自己也关闭连接，进入 <code>CLOSED</code> 状态。</p>
+</li>
+</ul>
+<h5 id="10-为什么TCP是可靠的"><a href="#10-为什么TCP是可靠的" class="headerlink" title="10.为什么TCP是可靠的"></a>10.为什么TCP是可靠的</h5><ol>
+<li><p>ACK恢复</p>
+<p>每收到一个正确的、符合次序的片段就向发送方发送一个特殊的TCP片段，告知对方以收到。</p>
+</li>
+<li><p>重传机制</p>
+<p>如果等待一段时间没有收到ack确认，会重新发送出现异常的片段</p>
+</li>
+</ol>
+<h5 id="11-C-文件操作"><a href="#11-C-文件操作" class="headerlink" title="11.C++文件操作"></a>11.C++文件操作</h5><p>ofstream：写(输出)操作的类</p>
+<p>ifstream：读()输入操作的类</p>
+<p>fstream：可读可写的类</p>
+<p>使用open函数打开文件 <code>void open (const char * filename, openmode mode)</code></p>
+<ul>
+<li>ios::in 输入</li>
+<li>ios::out 输出</li>
+<li>ios::ate 初始位置在文件尾</li>
+<li>ios::app 追加的方式</li>
+<li>ios::trunc 若文件已存在先删除</li>
+<li>ios::binary 二进制方式</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1369,95 +1601,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8Bthis%E6%8C%87%E9%92%88%E3%80%81%E9%87%8D%E8%BD%BD%E3%80%81%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%A4%8D%E5%88%B6%E4%B8%8E%E8%B5%8B%E5%80%BC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="lovinglover">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lovinglover's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/09/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8Bthis%E6%8C%87%E9%92%88%E3%80%81%E9%87%8D%E8%BD%BD%E3%80%81%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%A4%8D%E5%88%B6%E4%B8%8E%E8%B5%8B%E5%80%BC/" class="post-title-link" itemprop="url">我的c++学习笔记之this指针、重载、对象的复制与赋值</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-09 17:11:26" itemprop="dateCreated datePublished" datetime="2020-03-09T17:11:26+08:00">2020-03-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-13 10:34:42" itemprop="dateModified" datetime="2020-03-13T10:34:42+08:00">2020-03-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">c++学习笔记</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h1><h2 id="成员的存储"><a href="#成员的存储" class="headerlink" title="成员的存储"></a>成员的存储</h2><p>使用类实例化一个对象时，系统会为对象分配内存空间，但是C++中每个对象所占用的存储空间只是该数据的数据成员即成员变量所占的空间，并不包括函数的空间。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">char</span> *name;</span><br><span class="line">	Student(<span class="keyword">char</span> *t_name, <span class="keyword">int</span> t_age, <span class="keyword">int</span> t_num, <span class="keyword">char</span> t_sex);</span><br><span class="line">	~Student();</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">get_age</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">char</span> <span class="title">get_sex</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> sex;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">get_num</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> num;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">	<span class="keyword">char</span> sex;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>如这样的一个类，它的空间一个是<code>age</code>、<code>num</code>、<code>sex</code>、<code>name</code>这几个变量的大小之和。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">Student <span class="title">stu1</span><span class="params">(<span class="string">"zhangsan"</span>, <span class="number">20</span>, <span class="number">1000</span>, <span class="string">'m'</span>)</span></span>;</span><br><span class="line">	<span class="keyword">int</span> <span class="built_in">size</span> = <span class="keyword">sizeof</span>(stu1);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"size of stu1："</span> &lt;&lt; <span class="built_in">size</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">size of stu1：16</span><br><span class="line">zhangsan的析构函数被调用</span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
-
-<p>按照计算应该是<code>2+2+1+8=13</code>，却打印出<code>16</code>，这个涉及到字节对齐。但足以证明对象的存储空间只是该对象的数据成员的空间和。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/09/%E6%88%91%E7%9A%84c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8Bthis%E6%8C%87%E9%92%88%E3%80%81%E9%87%8D%E8%BD%BD%E3%80%81%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%A4%8D%E5%88%B6%E4%B8%8E%E8%B5%8B%E5%80%BC/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1528,14 +1671,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
