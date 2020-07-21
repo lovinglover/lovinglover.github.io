@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1.C++应用程序使用memory的途径 详细说明  2.new和delete执行的操作new()执行的操作  分配内存 调用构造函数   delete()相反  调用析构函数 释放内存   我们无法直接调用构造函数，如果需要，只能通过placement new方式 123char *buf &#x3D; new char[sizeof(Complex)*3];	&#x2F;&#x2F; 先分配内存Complex *pc &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一讲 primitives">
+<meta property="og:url" content="http://yoursite.com/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/index.html">
+<meta property="og:site_name" content="lovinglover&#39;s Blog">
+<meta property="og:description" content="1.C++应用程序使用memory的途径 详细说明  2.new和delete执行的操作new()执行的操作  分配内存 调用构造函数   delete()相反  调用析构函数 释放内存   我们无法直接调用构造函数，如果需要，只能通过placement new方式 123char *buf &#x3D; new char[sizeof(Complex)*3];	&#x2F;&#x2F; 先分配内存Complex *pc &#x3D;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/1.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/2.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/3.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/4.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/5.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/6.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/7.png">
+<meta property="article:published_time" content="2020-07-21T00:50:43.000Z">
+<meta property="article:modified_time" content="2020-07-21T13:35:57.326Z">
+<meta property="article:author" content="lovinglover">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/1.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>第一讲 primitives | lovinglover's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">lovinglover's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">16</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lovinglover">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lovinglover's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          第一讲 primitives
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-21 08:50:43 / 修改时间：21:35:57" itemprop="dateCreated datePublished" datetime="2020-07-21T08:50:43+08:00">2020-07-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">内存管理</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-C-应用程序使用memory的途径"><a href="#1-C-应用程序使用memory的途径" class="headerlink" title="1.C++应用程序使用memory的途径"></a>1.C++应用程序使用memory的途径</h2><p><img src="/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/1.png" alt></p>
+<p>详细说明</p>
+<p><img src="/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/2.png" alt></p>
+<h2 id="2-new和delete执行的操作"><a href="#2-new和delete执行的操作" class="headerlink" title="2.new和delete执行的操作"></a>2.new和delete执行的操作</h2><p><code>new()</code>执行的操作</p>
+<ol>
+<li>分配内存</li>
+<li>调用构造函数</li>
+</ol>
+<p><img src="/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/3.png" alt></p>
+<p><code>delete()</code>相反</p>
+<ol>
+<li>调用析构函数</li>
+<li>释放内存</li>
+</ol>
+<p><img src="/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/4.png" alt></p>
+<p>我们无法直接调用构造函数，如果需要，只能通过<strong>placement new</strong>方式</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *buf = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="keyword">sizeof</span>(Complex)*<span class="number">3</span>];	<span class="comment">// 先分配内存</span></span><br><span class="line">Complex *pc = <span class="keyword">new</span>(buf)Complex(<span class="number">1</span>,<span class="number">2</span>);		<span class="comment">// 在该内存中构建对象</span></span><br><span class="line"><span class="keyword">delete</span>[] buf;</span><br></pre></td></tr></table></figure>
+
+<p>没有与<strong>placement new</strong>对应的<strong>delete</strong>，因为该方式并不会分配内存</p>
+<h2 id="3-array-new和array-delete"><a href="#3-array-new和array-delete" class="headerlink" title="3.array new和array delete"></a>3.array new和array delete</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> *psa = <span class="keyword">new</span> <span class="built_in">string</span>[<span class="number">3</span>];</span><br><span class="line"><span class="keyword">delete</span>[] psa;</span><br></pre></td></tr></table></figure>
+
+<p>使用array new为数组分配空间时，会生成cookie(something about bookkeeping)，存放一些信息如长度等</p>
+<p><img src="/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/5.png" alt></p>
+<p>这里如果使用delete，会引起内存泄漏</p>
+<h3 id="3-1数组在内层中"><a href="#3-1数组在内层中" class="headerlink" title="3.1数组在内层中"></a>3.1数组在内层中</h3><p><img src="/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/6.png" alt></p>
+<p>这一块 4 + 32 + 4 * 10+4 * 2= 84 字节，字节对齐，调整到96</p>
+<h2 id="4-通过重载，接管内存分配，实现内存管理"><a href="#4-通过重载，接管内存分配，实现内存管理" class="headerlink" title="4.通过重载，接管内存分配，实现内存管理"></a>4.通过重载，接管内存分配，实现内存管理</h2><p><img src="/2020/07/21/%E7%AC%AC%E4%B8%80%E8%AE%B2-primitives/7.png" alt></p>
+<p>由图可见，可以重载类中的<code>operator new</code>和<code>operator delete</code>接管内存分配</p>
+<ul>
+<li><code>operator new</code>可以写出很多个版本，但第一个参数必须是size_t</li>
+<li><code>operator delete</code>也可以写很多个版本，和<code>operator new</code>对应，但是不会被调用。只要当<strong>new</strong>所调用的构造抛出异常，才会调用这样重载的operator delete，主要归还未能完全创建的memory</li>
+</ul>
+<h3 id="版本一"><a href="#版本一" class="headerlink" title="版本一"></a>版本一</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> test1 &#123;</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Screen</span> &#123;</span></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		Screen(<span class="keyword">int</span> x) :i(x) &#123;&#125;;</span><br><span class="line">		<span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> i;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> *<span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span>)</span></span>;</span><br><span class="line">		<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span> *)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">		Screen *next;	<span class="comment">// 通过next指针将申请的空间以链表形式串起来</span></span><br><span class="line">		<span class="keyword">static</span> Screen *freeStore;	<span class="comment">// 可用空间</span></span><br><span class="line">		<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> screenChunk;	<span class="comment">// 一次申请的大小</span></span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	Screen* Screen::freeStore = <span class="literal">nullptr</span>;	<span class="comment">// 初始指向空，即没有可用空间</span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> Screen::screenChunk = <span class="number">24</span>;		<span class="comment">// 一次分配的大小为24</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span>* Screen::<span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span> <span class="built_in">size</span>)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		Screen *p;</span><br><span class="line">		<span class="keyword">if</span> (!freeStore) &#123;</span><br><span class="line">            <span class="comment">// freeStore指空，说明第一次调用或者可用空间没有了</span></span><br><span class="line">            <span class="comment">// 分配24个Screen对象大小的空间，</span></span><br><span class="line">			<span class="keyword">size_t</span> chunk = screenChunk * <span class="built_in">size</span>;</span><br><span class="line">			freeStore = p = <span class="keyword">reinterpret_cast</span>&lt;Screen*&gt;(<span class="keyword">new</span> <span class="keyword">char</span>[chunk]);</span><br><span class="line">            <span class="comment">//使用循环将内存使用next指针串起来，并将最后一个置空</span></span><br><span class="line">			<span class="keyword">for</span> (; p != &amp;freeStore[screenChunk - <span class="number">1</span>]; ++p)</span><br><span class="line">				p-&gt;next = p + <span class="number">1</span>;</span><br><span class="line">			p-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="comment">// p为返回的这一次用于构造的空间，同时freeStore后移</span></span><br><span class="line">		p = freeStore;</span><br><span class="line">		freeStore = freeStore-&gt;next;</span><br><span class="line">		<span class="keyword">return</span> p;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> Screen::<span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span> *p)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="comment">//將 deleted object 收回插入 free list 前端</span></span><br><span class="line">		(<span class="keyword">static_cast</span>&lt;Screen*&gt;(p))-&gt;next = freeStore;</span><br><span class="line">		freeStore = <span class="keyword">static_cast</span>&lt;Screen*&gt;(p);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"\ntest1().......... \n"</span>;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(Screen) &lt;&lt; <span class="built_in">endl</span>;		<span class="comment">//8	</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">size_t</span> <span class="keyword">const</span> N = <span class="number">100</span>;</span><br><span class="line">		Screen* p[N];</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; N; ++i)</span><br><span class="line">            <span class="comment">// 每创建24个对象，就会重新申请空间，连续的24个的内存一定是连续的</span></span><br><span class="line">			p[i] = <span class="keyword">new</span> Screen(i);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//输出前10个pointers,之间间隔为8</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; <span class="number">10</span>; ++i)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; p[i] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; N; ++i)</span><br><span class="line">			<span class="keyword">delete</span> p[i];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里自己分配一大块内存进行划分，省去了cookie的开销，但多了一个指针，版本二会针对指针优化</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/17/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/" rel="prev" title="面试问题汇总">
+      <i class="fa fa-chevron-left"></i> 面试问题汇总
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-C-应用程序使用memory的途径"><span class="nav-text">1.C++应用程序使用memory的途径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-new和delete执行的操作"><span class="nav-text">2.new和delete执行的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-array-new和array-delete"><span class="nav-text">3.array new和array delete</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1数组在内层中"><span class="nav-text">3.1数组在内层中</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-通过重载，接管内存分配，实现内存管理"><span class="nav-text">4.通过重载，接管内存分配，实现内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#版本一"><span class="nav-text">版本一</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lovinglover</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lovinglover</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
